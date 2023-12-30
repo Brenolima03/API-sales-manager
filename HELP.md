@@ -15,6 +15,13 @@ The following guides illustrate how to use some features concretely:
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
 * [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
 
+### Steps for creating a class
+* Entity;
+* Resource;
+* Repository;
+* Service.
+* When in doubt, follow the alphabetical order.
 
 ### Commands
 mvn spring-boot:run (initiate Spring Boot)
+
