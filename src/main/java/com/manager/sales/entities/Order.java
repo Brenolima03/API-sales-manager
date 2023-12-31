@@ -2,6 +2,8 @@ package com.manager.sales.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,9 +15,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
-@Table(name = "tb_orders")
+@Table(name = "tb_order")
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,6 +35,9 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private Customer client;
 
+    @Transient
+    private Set<Product> products = new HashSet<>();
+    
     public Order() {
     }
     public Order(Long id, Instant datetime, Customer client) {
@@ -57,6 +63,9 @@ public class Order implements Serializable {
     }
     public void setClient(Customer client) {
         this.client = client;
+    }
+    public Set<Product> getProducts() {
+        return products;
     }
 
     @Override
