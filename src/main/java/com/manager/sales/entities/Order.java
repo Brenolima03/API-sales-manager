@@ -1,51 +1,62 @@
 package com.manager.sales.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_customer")
-public class Customer implements Serializable {
+@Table(name = "tb_orders")
+public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", timezone = "GMT")
+    private Instant datetime;
     
-    @OneToMany(mappedBy = "client")
-    private List<Order> orders = new ArrayList<>();
-    
-    public Customer() {
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Customer client;
+
+    public Order() {
     }
-    public Customer(Long id, String name) {
+    public Order(Long id, Instant datetime, Customer client) {
         this.id = id;
-        this.name = name;
+        this.datetime = datetime;
+        this.client = client;
     }
-    
+
     public Long getId() {
         return id;
     }
     public void setId(Long id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
+    public Instant getDatetime() {
+        return datetime;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setDatetime(Instant datetime) {
+        this.datetime = datetime;
     }
-    public List<Order> getOrders() {
-        return orders;
+    public Customer getClient() {
+        return client;
+    }
+    public void setClient(Customer client) {
+        this.client = client;
     }
 
     @Override
@@ -64,7 +75,7 @@ public class Customer implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Customer other = (Customer) obj;
+        Order other = (Order) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
