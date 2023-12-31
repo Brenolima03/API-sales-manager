@@ -10,9 +10,11 @@ import com.manager.sales.entities.Customer;
 @RestController
 @RequestMapping(value = "/customers")
 public class CustomerResource {
+
     @GetMapping
     public ResponseEntity<Customer> findAll() {
         Customer u = new Customer(1L, "Fulano");
         return ResponseEntity.ok().body(u);
     }
+
 }
