@@ -24,4 +24,6 @@ The following guides illustrate how to use some features concretely:
 
 ### Commands
 mvn spring-boot:run (initiate Spring Boot)
-
+git add .
+git commit -m 'JPA repository and dependency injection'
+git push
