@@ -25,5 +25,5 @@ The following guides illustrate how to use some features concretely:
 ### Commands
 mvn spring-boot:run (initiate Spring Boot)
 git add .
-git commit -m 'Many-to-many association with JoinTable'
+git commit -m 'total payment'
 git push

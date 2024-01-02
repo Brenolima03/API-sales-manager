@@ -1,40 +1,42 @@
 package com.manager.sales.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.Instant;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_customer")
-public class Customer implements Serializable {
+@Table(name = "tb_payment")
+public class Payment implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    
-    @OneToMany(mappedBy = "client")
-    private List<Order> orders = new ArrayList<>();
+    private Instant datetime;
+    private Double paymentValue;
 
-    @OneToMany(mappedBy = "client")
-    private Set<Payment> payments = new HashSet<>();
-    
-    public Customer() {
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Customer client;
+
+    public Payment() {
     }
-    public Customer(Long id, String name) {
+    public Payment(Long id, Instant datetime, Double paymentValue, Customer client) {
         this.id = id;
-        this.name = name;
+        this.datetime = datetime;
+        this.client = client;
+        this.paymentValue = paymentValue;
     }
     
     public Long getId() {
@@ -43,27 +45,29 @@ public class Customer implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
+    public Instant getDatetime() {
+        return datetime;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setDatetime(Instant datetime) {
+        this.datetime = datetime;
     }
-    public List<Order> getOrders() {
-        return orders;
+    public Double getValue() {
+        return paymentValue;
     }
-    public Set<Payment> getPayments() {
-        return payments;
+    public void setValue(Double paymentValue) {
+        this.paymentValue = paymentValue;
+    }
+    public Customer getClient() {
+        return client;
+    }
+    public void setClient(Customer client) {
+        this.client = client;
     }
 
-    public Double getTotalPayment() {
-        double sum = 0.0;
-        for (Payment payment : payments) {
-            sum += payment.getSubTotal();
-        }
-        return sum;
+    public double getSubTotal() {
+        return paymentValue != null ? paymentValue : 0.0;
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -80,7 +84,7 @@ public class Customer implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Customer other = (Customer) obj;
+        Payment other = (Payment) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -88,5 +92,5 @@ public class Customer implements Serializable {
             return false;
         return true;
     }
-
+    
 }
