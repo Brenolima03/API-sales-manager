@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Profile;
 
 import com.manager.sales.entities.Customer;
 import com.manager.sales.entities.Order;
-import com.manager.sales.entities.Payment;
+// import com.manager.sales.entities.Payment;
 import com.manager.sales.entities.Product;
 import com.manager.sales.repositories.CustomerRepository;
 import com.manager.sales.repositories.OrderRepository;
-import com.manager.sales.repositories.PaymentRepository;
+// import com.manager.sales.repositories.PaymentRepository;
 import com.manager.sales.repositories.ProductRepository;
 
 @Configuration
@@ -30,8 +30,8 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
-    @Autowired
-    private PaymentRepository paymentRepository;
+    // @Autowired
+    // private PaymentRepository paymentRepository;
 
     @Override
     public void run(String... args) throws Exception {

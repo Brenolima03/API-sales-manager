@@ -1,9 +1,7 @@
 package com.manager.sales.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -27,7 +25,7 @@ public class Customer implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-    private List<Order> orders = new ArrayList<>();
+    Set<Order> orders = new HashSet<>();
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private Set<Payment> payments = new HashSet<>();
@@ -50,7 +48,7 @@ public class Customer implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
     public Set<Payment> getPayments() {

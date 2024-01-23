@@ -16,7 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.manager.sales.entities.Customer;
+import com.manager.sales.entities.Order;
+import com.manager.sales.repositories.CustomerRepository;
+import com.manager.sales.repositories.OrderRepository;
 import com.manager.sales.services.CustomerService;
+import com.manager.sales.services.exceptions.ResourceNotFoundException;
+
 
 @RestController
 @RequestMapping(value = "/customers")
@@ -24,6 +29,12 @@ public class CustomerResource {
 
     @Autowired
     private CustomerService service;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @GetMapping
     public ResponseEntity<List<Customer>> findAll() {
@@ -45,11 +56,18 @@ public class CustomerResource {
 		return ResponseEntity.created(uri).body(obj);
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Customer> update(@PathVariable Long id, @RequestBody Customer obj) {
-        obj = service.update(id, obj);
-        return ResponseEntity.ok().body(obj);
+    @PutMapping("/{customerId}/order/{orderId}")
+    Customer bindOrderToCustomer(
+        @PathVariable Long customerId,
+        @PathVariable Long orderId
+    ) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + customerId));
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + orderId));
+
+        customer.getOrders().add(order);
+        return customerRepository.save(customer);
     }
+
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

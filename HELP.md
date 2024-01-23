@@ -28,5 +28,5 @@ mvn spring-boot:run (initiate Spring Boot)
 http://localhost:8080/
 
 git add .
-git commit -m 'insert, update and delete'
+git commit -m 'binding an order to a customer'
 git push
