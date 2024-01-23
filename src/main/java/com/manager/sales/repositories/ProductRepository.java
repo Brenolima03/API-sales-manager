@@ -7,5 +7,4 @@ import com.manager.sales.entities.Product;
 
 @Repository // This annotation is optional because this class already inherits it from the JpaRepository.
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    
 }

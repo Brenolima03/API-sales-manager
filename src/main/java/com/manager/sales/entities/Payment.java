@@ -3,6 +3,7 @@ package com.manager.sales.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -22,6 +23,8 @@ public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", timezone = "GMT")
     private Instant datetime;
     private Double paymentValue;
 
@@ -33,12 +36,11 @@ public class Payment implements Serializable {
     public Payment() {
     }
     public Payment(Long id, Instant datetime, Double paymentValue, Customer client) {
-        this.id = id;
         this.datetime = datetime;
         this.client = client;
         this.paymentValue = paymentValue;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -92,5 +94,5 @@ public class Payment implements Serializable {
             return false;
         return true;
     }
-    
+
 }

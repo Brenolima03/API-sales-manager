@@ -30,7 +30,7 @@ public class Order implements Serializable {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", timezone = "GMT")
     private Instant datetime;
-    
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -45,7 +45,6 @@ public class Order implements Serializable {
     public Order() {
     }
     public Order(Long id, Instant datetime, Customer client) {
-        this.id = id;
         this.datetime = datetime;
         this.client = client;
     }

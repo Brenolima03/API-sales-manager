@@ -24,6 +24,9 @@ The following guides illustrate how to use some features concretely:
 
 ### Commands
 mvn spring-boot:run (initiate Spring Boot)
+
+http://localhost:8080/
+
 git add .
-git commit -m 'total payment'
+git commit -m 'insert, update and delete'
 git push
