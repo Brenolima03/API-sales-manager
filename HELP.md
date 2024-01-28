@@ -15,6 +15,16 @@ The following guides illustrate how to use some features concretely:
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
 * [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
 
+###
+If you don't have Java or have an outdated version use the following commands:
+* sudo apt update
+* sudo apt install maven
+* sudo apt install openjdk-21-jdk
+* sudo nano /etc/environment
+* JAVA_HOME="/usr/lib/jvm/jdk-21-oracle-x64/bin/java"
+* source /etc/environment (Apply the path)
+* echo $JAVA_HOME (Check if the newer Java was successfully installed and set to default)
+
 ### Steps for creating a class
 * Entity;
 * Resource;
@@ -28,5 +38,5 @@ mvn spring-boot:run (initiate Spring Boot)
 http://localhost:8080/
 
 git add .
-git commit -m 'binding an order to a customer'
+git commit -m 'adding index.html'
 git push
