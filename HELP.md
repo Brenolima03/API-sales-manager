@@ -38,5 +38,5 @@ mvn spring-boot:run (initiate Spring Boot)
 http://localhost:8080/
 
 git add .
-git commit -m 'adding index.html'
+git commit -m 'creating a form for adding customers'
 git push

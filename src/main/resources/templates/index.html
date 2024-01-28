@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Sales</title>
-</head>
-<body>
-	<h2 th:text="${welcome}"></h2>	
-</body>
+<html th:replace="~{global/base :: layout (~{::div})}">
+    <div class="container mx-auto py-12">
+        <h1 class="text-3xl font-semibold mb-4" th:text="'Hello!'"></h1>
+        <h2 class="text-xl mb-4" th:text="${welcome}"></h2>
+        <a class="btn btn-primary py-2 px-4 rounded bg-blue-500 text-white hover:bg-blue-600" href="/customer/new">New customer</a>
+    </div>
+</html>
